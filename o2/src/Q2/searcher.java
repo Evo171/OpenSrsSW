@@ -1,10 +1,8 @@
-package Q1;
-
+package Q2;
 
 import java.io.FileInputStream;//머지 두가지 읽히기 , 충돌회피 
 //충돌 일부러 발생, 두백터크기 코사인,각 축은 하나의 단어 ,정보3.8 3.8축 ,단어 3개 3차원,완전히 동일하면 1,다르면 0,05면 중간 코사인;
 //
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -97,7 +95,7 @@ public class searcher {
 	     CalcSim(kkey,hashMap);
 	     objectInputStream.close();
 		} catch (IOException | ClassNotFoundException e) {
-			
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	     	
@@ -110,16 +108,20 @@ public class searcher {
 
 		
 		Iterator<String> it=kkey.keySet().iterator();
+
+		/*while(it.hasNext()) {
+			String key=it.next();
+		qKey.add(key);
+			}*/
 	
 		double id0=0,id1=0,id2=0,id3=0,id4=0;
 		 double f0 = 0;
 		 double cos0=0,cos1=0,cos2=0,cos3=0,cos4=0;
-		 double sim0=0,sim1=0,sim2=0,sim3=0,sim4=0;
 		 
 		ArrayList <Double> total=new ArrayList <Double>();
 		while(it.hasNext()) {
-			
-
+			int count=0;
+			double []f1= {};
 			String key=it.next();
 			ArrayList <Double> w=new ArrayList <Double>();
 			//System.out.print(key+"->");
@@ -133,7 +135,11 @@ public class searcher {
  	         }
  	        
  	         f0+=Math.pow(kkey.get(key),2);//퀴리 가중치,Right
-
+ 	        
+ 	        	 
+ 	        	// f1[count]+=Math.pow(w.get(count),2);
+ 	         
+ 	         
  	        id0+=kkey.get(key)*w.get(0);
  	        id1+=kkey.get(key)*w.get(1);
  	        id2+=kkey.get(key)*w.get(2);
@@ -149,37 +155,52 @@ public class searcher {
  	        
  	      // 면1 스프1 분말1 라면 1
 
- 	     
+ 	      System.out.println(key+kkey.get(key)+w.get(0));
+ 	      System.out.println(key+kkey.get(key)+w.get(1));
+ 	      System.out.println(key+kkey.get(key)+w.get(2));
+ 	      System.out.println(key+kkey.get(key)+w.get(3));
+ 	     System.out.println(key+kkey.get(key)+w.get(4));
+ 	   
  	         }
 		
-			
-		}
-
-		sim0=id0/(Math.sqrt(f0)*Math.sqrt(cos0));
-		sim1=id1/(Math.sqrt(f0)*Math.sqrt(cos1));
-		sim2=id2/(Math.sqrt(f0)*Math.sqrt(cos2));
-		sim3=id3/(Math.sqrt(f0)*Math.sqrt(cos3));
-		sim4=id4/(Math.sqrt(f0)*Math.sqrt(cos4));
-		if(Double.isNaN(sim0)) 
-			sim0=0.0;
-		if(Double.isNaN(sim1))
-				sim1=0.0;
-		if(Double.isNaN(sim2))
-			sim2=0.0;
-	
-		if(Double.isNaN(sim3))
-			sim3=0.0;
-	
-		if(Double.isNaN(sim4))
-			sim4=0.0;
-	
-		total.add(sim0);
-		total.add(sim1);
-		total.add(sim2);
-		total.add(sim3);
-		total.add(sim4);
+		//System.out.println(f1);
 		
-		/*double scores[]= {id0,id1,id2,id3,id4};
+		//total.add(Math.sqrt(f0)*Math.sqrt(f1[count]));
+		//System.out.println(total.get(count));		
+		}System.out.println("tdff -------------     ");
+
+		System.out.println(cos0);
+		System.out.println(cos1);
+		System.out.println(cos2);
+		System.out.println(cos3);
+		System.out.println(cos4);
+		total.add(Math.sqrt(f0)*Math.sqrt(cos0));
+		total.add(Math.sqrt(f0)*Math.sqrt(cos1));
+		total.add(Math.sqrt(f0)*Math.sqrt(cos2));
+		total.add(Math.sqrt(f0)*Math.sqrt(cos3));
+		total.add(Math.sqrt(f0)*Math.sqrt(cos4));
+		
+		for(Double i:total) {//Right
+			System.out.println(i);
+		}
+		
+		
+		System.out.println(" -------------     ");
+		/*for(int i=0;i<4;i++) {
+			System.out.println(total.get(i));
+		}*/
+		 /*System.out.println(id0);
+			System.out.println(id1);
+		System.out.println(id2);
+			System.out.println(id3);
+			System.out.println(id4);*/
+        
+	       /* for(int i=0;i<5;i++)
+	        	  System.out.println(w.get(i));
+	        System.out.println("   ");*/
+       
+		
+		double scores[]= {id0,id1,id2,id3,id4};
 		
 		 for (int i = 0; i < scores.length; i++) {
 	            for (int j = i + 1; j < scores.length; j++) {
@@ -190,29 +211,33 @@ public class searcher {
 	                }
 	            }
 	        }
-	        for(int i=0;i<5;i++) {
+		 String []title= {"떡","라면","아이스크림","초밥","파스타"};
+		 HashMap <String,Double> print=new HashMap <String,Double>();
+		 for(int i=0;i<5;i++) {
 			 print.put(title[i],scores[i]);
 			 
 		 }
-*/
-		 String []title= {"떡","라면","아이스크림","초밥","파스타"};
-		 
+		 ArrayList<Double> numbers = new ArrayList<Double>();
+		 numbers.add(id0);
+		 numbers.add(id1);numbers.add(id2);numbers.add(id3);numbers.add(id4);
+		 for(double i:numbers)
+			 System.out.println(i);
 		
-		 Collections.sort(total,Collections.reverseOrder());
-
+		
+		 Collections.sort(numbers,Collections.reverseOrder());
 		 for(int i=0;i<3;i++) {
 			 
-		 if(total.get(i)!=0) {
-     		if(total.get(i)==sim0)
-    			System.out.println((i+1)+"순위:"+title[0]+":"+String.format("%.2f",total.get(i)) );
-    		else if(total.get(i)==sim1)
-    			System.out.println((i+1)+"순위:"+title[1]+":"+String.format("%.2f",total.get(i)) );
-    		else if(total.get(i)==sim2)
-    			System.out.println((i+1)+"순위:"+title[2]+":"+String.format("%.2f", total.get(i)) );
-    		else if(total.get(i)==sim3)
-    			System.out.println((i+1)+"순위:"+title[3]+":"+String.format("%.2f", total.get(i)) );
-    		else if(total.get(i)==sim4)
-    			System.out.println((i+1)+"순위:"+title[4]+":"+String.format("%.2f",total.get(i)) );
+		 if(numbers.get(i)!=0) {
+     		if(numbers.get(i)==id0)
+    			System.out.println((i+1)+"순위:"+title[0]+":"+String.format("%.2f",numbers.get(i)) );
+    		else if(numbers.get(i)==id1)
+    			System.out.println((i+1)+"순위:"+title[1]+":"+String.format("%.2f", numbers.get(i)) );
+    		else if(numbers.get(i)==id2)
+    			System.out.println((i+1)+"순위:"+title[2]+":"+String.format("%.2f", numbers.get(i)) );
+    		else if(numbers.get(i)==id3)
+    			System.out.println((i+1)+"순위:"+title[3]+":"+String.format("%.2f", numbers.get(i)) );
+    		else if(numbers.get(i)==id4)
+    			System.out.println((i+1)+"순위:"+title[4]+":"+String.format("%.2f", numbers.get(i)) );
     	}
 
     	else 

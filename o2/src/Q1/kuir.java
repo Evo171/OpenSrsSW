@@ -14,9 +14,9 @@ public class kuir {
 			makeCollection collection = new makeCollection(path);
 			collection.makeXml();
 		}
-		else if(command.equals("-k")) {
-			makeKeyword keyword = new makeKeyword(path);
-			keyword.convertXml();
+		else if(command.equals("-m")) {
+			MidTerm keyword = new MidTerm(path);
+			keyword.showSnippet();
 		}
 		else if(command.equals("-i")) {
 			indexer keyword = new indexer(path);

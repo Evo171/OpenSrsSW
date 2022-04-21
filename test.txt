@@ -1,0 +1,26 @@
+map.put(1,"사과");
+map.remove(1); //key값 1 제거
+map.clear(); 
+System.out.println(map); //전체 출력 : {1=사과, 2=바나나, 3=포도}
+System.out.println(map.get(1));//key값 1의 value얻기 : 사과
+if(!(indexMap.containsKey(ar.get(i)))) {
+	     	
+	    		indexMap.put(ar.get(i),entry);
+	     		}
+
+ArrayList
+System.out.println(list.contains(1)); //list에 1이 있는지 검색 : true
+System.out.println(list.indexOf(1))
+for(Integer i : list) { //for문을 통한 전체출력
+    System.out.println(i);
+}
+
+Iterator iter = list.iterator(); //Iterator 선언 
+while(iter.hasNext()){//다음값이 있는지 체크
+    System.out.println(iter.next()); //값 출력
+}
+list.add(3); //값 추가
+list.add(null); //null값도 add가능
+list.add(1,10); 
+list.remove(1);  //index 1 제거
+list.clear(); 

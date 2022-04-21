@@ -3,6 +3,8 @@ package Q1;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,18 +25,21 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class makeKeyword {// 3주차 
-	private String input_file;
-	private String output_flie = "./index.xml";
-	
-	public makeKeyword(String file) {
+public class MidTerm {// 3주차 
+	private String input_file="collection.xml";
+	private String output_flie;
+	String data1;
+	String query;
+	public MidTerm(String file) {
 		this.input_file = file;
+		
+		this.data1=file.substring(0,12);
+		String query=file.substring(13);
+		
 	}
 
-	public void convertXml() {
+	public void showSnippet() {
 		try {
-
-		    
 	     	File file = new File(input_file);//xml 파서부분
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -49,6 +54,7 @@ public class makeKeyword {// 3주차
             Element docs = doc.createElement("docs");
             doc.appendChild(docs);
 
+            int count=0;
             for (int temp = 0; temp < nList.getLength(); temp++) {
             	 String body = null ;
  	            String titleData=null;
@@ -58,54 +64,41 @@ public class makeKeyword {// 3주차
 	            docs.appendChild(code);
 		     	 code.setAttribute("id", ""+temp+"");
 
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {// title과 body생성
+		     	 HashMap <String, Integer> hm=new HashMap <String, Integer>();
+		     	 ArrayList <String> ar=new ArrayList <String> (); 
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     titleData=(String) eElement.getElementsByTagName("title").item(0).getTextContent();
                     body =(String) eElement.getElementsByTagName("body").item(0).getTextContent();
-                    Element bodyT = doc.createElement("body");
+                    System.out.println(body);
                     KeywordExtractor ke= new KeywordExtractor();
-    		     	KeywordList kl=ke.extractKeyword(body, true);
+    		     	KeywordList kl=ke.extractKeyword(query, true);
     		     	Keyword kwrd = null;
     		     	
-    		     	for(int i=0;i<kl.size();i++) {//for문을 이용해 생성된 문자소 붙이기
+    		     	for(int i=0;i<kl.size();i++) {
     		     		 kwrd=kl.get(i);
-
-    		     		 
-    		     		bodyT.appendChild(doc.createTextNode("#"+kwrd.getString()+":"+kwrd.getCnt()+" "));
+    		     		 if(body.contains(kwrd.getString())) {
+    		     			 count++;
+    		     			System.out.println(titleData+kwrd.getString()+":"+count);
+    		     		 }   		     		 
+    		     		//bodyT.appendChild(doc.createTextNode("#"+kwrd.getString()+":"+kwrd.getCnt()+" "));
  
                      }
-
-    		     	Element name = doc.createElement("title");
-     	            name.appendChild(doc.createTextNode(titleData));
-     	            code.appendChild(name);
-	     	            code.appendChild(bodyT);
-	     	            code = doc.createElement("doc");
-	     	            docs.appendChild(code);
-
+ 
     		     	}
-                
-                TransformerFactory transformerFactory = TransformerFactory.newInstance();//xml생성
-		      	  
-	            Transformer transformer = transformerFactory.newTransformer();
-	            
-	            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-	            transformer.setOutputProperty(OutputKeys.INDENT, "yes"); 
-	            transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, "yes"); 
-	            DOMSource source = new DOMSource(doc);
-	            StreamResult result = new StreamResult(new FileOutputStream(new File(output_flie)));
 
-	            transformer.transform(source, result);
 
             }
 
         }
-        catch(IOException | ParserConfigurationException | SAXException | NullPointerException | TransformerException e) {
+        catch(IOException | ParserConfigurationException | SAXException | NullPointerException e) {
             System.out.println(e);
-		System.out.println("3주차 실행완료");
+		
 	}
 	
 
 	}
+
 	}
 		
 		

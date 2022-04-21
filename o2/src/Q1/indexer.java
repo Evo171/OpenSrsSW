@@ -74,11 +74,7 @@ try {
                         if (matcher.group(1) == null) break;
                        
                     } 
-                    /*for(String i:ar) {
-        	     		System.out.print(temp+i);
-        	     		
-        	     		
-        	     	}*/
+                   
                     
                     
                     Pattern pattern1 = Pattern.compile("[:](.*?)[ ]");
@@ -92,8 +88,7 @@ try {
                     List<String> doc1 = Arrays.asList(body);
                     documents = Arrays.asList(doc1);
                    
-                 // System.out.println(ar.size());
-        	     //System.out.println(ir.size());
+                
         	     	
            for(int i=0;i<ar.size();i++) {//ÇØ½Ã¸Ê »ý¼º
         	   
